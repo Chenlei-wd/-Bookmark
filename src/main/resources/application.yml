@@ -22,3 +22,5 @@ wechat:
   mpAddId: wxa7d7b80c743dcb57
   mpAppSecret: 1fa13d3b029132f0d1b5593d2daa78cb
   token: 1234
+server:
+  domain: http://x5kxp7.natappfree.cc

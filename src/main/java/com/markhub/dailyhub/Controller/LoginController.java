@@ -87,5 +87,15 @@ public class LoginController extends BaseController{
         return outMessage == null ? "" : outMessage.toXml();
     }
 
+    @GetMapping("/autologin")
+    public String autologin(String token){
 
+        Object userobj = redisUtil.get("autologin-" + token);
+        if(userobj != null){
+            UserDto userDto = JSONUtil.toBean(userobj.toString(), UserDto.class);
+            req.getSession().setAttribute(Consts.CURRENT_USER, userDto);
+            return "redirect:/";
+        }
+        return "redirect:/login";
+    }
 }

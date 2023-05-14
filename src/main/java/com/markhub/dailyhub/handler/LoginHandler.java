@@ -19,6 +19,9 @@ public class LoginHandler {
     @Autowired
     UserService userService;
 
+    @Value("${server.domain}")
+    String domain;
+
 
     public String handle(String openId, String content, WxMpService wxMpService) {
         // 1.校验content的合法性
@@ -31,6 +34,10 @@ public class LoginHandler {
         // 3.信息保存到redis中，用于用户登录
         redisUtil.set("info-" + content, JSONUtil.toJsonStr(userDto), 5*60);
 
-        return "登录成功";
+        String token = UUID.randomUUID().toString(true);
+        String url = domain + "/autologin?token=" + token;
+        redisUtil.set("autologin-" + token, JSONUtil.toJsonStr(userDto), 48*60*60);
+
+        return "欢迎你！\n\n" + "<a href='" + url + "' >点击这里登录</a>";
     }
 }
