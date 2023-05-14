@@ -1,0 +1,1 @@
+<p>你好，${user.username}, 这里是dailyhub！</p>
